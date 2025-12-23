@@ -53,4 +53,4 @@ console.log("Web serverni boshlash");
 // git branch => branch lar nomini chiqaradi
 // git log --oneline => commit larni kursatadi.
 // git commit --amend(hali remotega ulanmagan holatdagina yoziladi) => :wq
-// git pull origin master (remote dagi eng ohirgi source ni uzimizga yuklab oliwimz mumkin)
+// git pull origin master (remote dagi eng ohirgi source ni uzimizga yuklab oliwimz mumkin.)
