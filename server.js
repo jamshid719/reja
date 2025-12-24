@@ -1,4 +1,4 @@
-// // 18. Express framework va framework orqali web server quramiz.
+// // 18. EXPRESS FRAMEWORK VA FRAMEWORK ORQALI WEB SERVER QURAMIZ.
 console.log("Web serverni boshlash");
 
 // //Expressni install qlamiz => npm i express
@@ -16,11 +16,11 @@ console.log("Web serverni boshlash");
 // //bu bizga kirib kelayotgan json formatdagi data ni bizga object holatiga ugirib beradi.
 // // chunki client va web erver orasidagi data json format da
 // app.use(express.urlencoded({ extended: true }));
-// // bu traditional request qiliw instrumenti,yani html forumdan biror narsani post qilsak, bizning express serverimiz qabul qila oladi, bu kod bulmasa neglect qiladi.
+// // bu traditional request qiliw instrumenti,yani html formdan biror narsani post qilsak, bizning express serverimiz qabul qila oladi, bu kod bulmasa neglect qiladi.
 
 // //2.Session (bu misolda yuq)
 
-// //3. Views code: bunda BSSR yunaliwda backend da frontend yasaymiz (view). Yani backend da html yasab uni client ga yuboramiz.
+// //3. Views code: bunda BSSR (Backend side site render, which is more commonly known as Server-Side Rendering (SSR)) yunaliwda backend da frontend yasaymiz (view). Yani backend da html yasab uni client ga yuboramiz.
 // // buning un view ni yasaw un EJS dan foydalanamiz(npm i ejs).
 // app.set("views", "views"); // bu yerda "views" folderni kursatayapmiz (2chi "views")
 // app.set("view engine", "ejs"); // view engine ni ejs qilib ketamiz.
@@ -54,3 +54,49 @@ console.log("Web serverni boshlash");
 // git log --oneline => commit larni kursatadi.
 // git commit --amend(hali remotega ulanmagan holatdagina yoziladi) => :wq
 // git pull origin master (remote dagi eng ohirgi source ni uzimizga yuklab oliwimz mumkin.)
+
+//19. EJS FRAMEWORK ORQALI ANAVIY FRONTEND QURAMIZ
+
+const express = require("express");
+const app = express();
+const http = require("http");
+
+// //1. Kirish code:
+app.use(express.static("public"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// //2.Session
+
+// //3. Views code:
+app.set("views", "views");
+app.set("view engine", "ejs");
+
+// //4. Routing code:
+
+// app.get("/hello", function (req, res) {
+//   res.end(`<h1 style = "background: grey">Hello World</h1>`);
+// });
+
+// app.get("/gift", function (req, res) {
+//   res.end(`<h1 style="background: blue">Siz sovgalar bulimidasiz!</h1>`);
+// });
+
+app.post("/create-item", (req, res) => {
+  console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
+  res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
+});
+
+app.get("/", function (req, res) {
+  res.render("harid");
+}); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+
+//serverni hosil qilamiz.
+const server = http.createServer(app);
+let PORT = 3000;
+server.listen(PORT, function () {
+  console.log(`The server is running succesfully on port: ${PORT}`);
+});
+
+////NOTE: git reset --hard => bu filemizning ohirgi commit qilingan versiyasiga qaytadi.
+////      git clean -df => folder va filelarimizni uchirib yuboradi(ohirgi commit qilngan versiya gacha)
