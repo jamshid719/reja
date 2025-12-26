@@ -55,11 +55,76 @@ console.log("Web serverni boshlash");
 // git commit --amend(hali remotega ulanmagan holatdagina yoziladi) => :wq
 // git pull origin master (remote dagi eng ohirgi source ni uzimizga yuklab oliwimz mumkin.)
 
+////======================================================================================================//
+
 //19. EJS FRAMEWORK ORQALI ANAVIY FRONTEND QURAMIZ
+
+// const express = require("express");
+// const app = express();
+// const http = require("http");
+
+// // //1. Kirish code:
+// app.use(express.static("public"));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// // //2.Session
+
+// // //3. Views code:
+// app.set("views", "views");
+// app.set("view engine", "ejs");
+
+// // //4. Routing code:
+
+// // app.get("/hello", function (req, res) {
+// //   res.end(`<h1 style = "background: grey">Hello World</h1>`);
+// // });
+
+// // app.get("/gift", function (req, res) {
+// //   res.end(`<h1 style="background: blue">Siz sovgalar bulimidasiz!</h1>`);
+// // });
+
+// app.post("/create-item", (req, res) => {
+//   console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
+//   res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
+// });
+
+// app.get("/", function (req, res) {
+//   res.render("harid");
+// }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+
+// //serverni hosil qilamiz.
+// const server = http.createServer(app);
+// let PORT = 3000;
+// server.listen(PORT, function () {
+//   console.log(`The server is running succesfully on port: ${PORT}`);
+// });
+
+// // GET va POST requestlarning farqi:
+
+// //GET - database dan malumotni oliw un iwlatiladi
+// //POST - malumotni uzi bn olib keladi va database ga yozadi.
+
+// ////NOTE: git reset --hard => bu filemizning ohirgi commit qilingan versiyasiga qaytadi.
+// ////      git clean -df => folder va filelarimizni uchirib yuboradi(ohirgi commit qilngan versiya gacha)
+
+////======================================================================================================//
+
+//20. EJS FRAMEWORKDA PORTFOLIO PUBLISHING QILISH.
 
 const express = require("express");
 const app = express();
 const http = require("http");
+const fs = require("fs");
+
+let user;
+fs.readFile("database/user.json", "utf8", (err, data) => {
+  if (err) {
+    console.log("ERROR:", err);
+  } else {
+    user = JSON.parse(data);
+  }
+});
 
 // //1. Kirish code:
 app.use(express.static("public"));
@@ -74,29 +139,18 @@ app.set("view engine", "ejs");
 
 // //4. Routing code:
 
-// app.get("/hello", function (req, res) {
-//   res.end(`<h1 style = "background: grey">Hello World</h1>`);
+// app.post("/create-item", (req, res) => {
+//   console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
+//   res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
 // });
 
-// app.get("/gift", function (req, res) {
-//   res.end(`<h1 style="background: blue">Siz sovgalar bulimidasiz!</h1>`);
-// });
+app.get("/author", function (req, res) {
+  res.render("author", { user: user });
+}); // bu user publishing un kk buladigan malumot.
 
-app.post("/create-item", (req, res) => {
-  console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
-  res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
-});
-
-app.get("/", function (req, res) {
-  res.render("harid");
-}); // harid.ejs faylini "view" papkada hosil qilib olamiz.
-
-//serverni hosil qilamiz.
+// //serverni hosil qilamiz.
 const server = http.createServer(app);
 let PORT = 3000;
 server.listen(PORT, function () {
   console.log(`The server is running succesfully on port: ${PORT}`);
 });
-
-////NOTE: git reset --hard => bu filemizning ohirgi commit qilingan versiyasiga qaytadi.
-////      git clean -df => folder va filelarimizni uchirib yuboradi(ohirgi commit qilngan versiya gacha)
