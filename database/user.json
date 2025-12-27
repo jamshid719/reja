@@ -1,11 +1,11 @@
 {
-  "name": "Steve",
+  "name": "Floyd",
   "profession": "Software Engineer",
   "age": 20,
   "residence": "S. Korea",
-  "adress": "S. Korea, Daegu",
+  "address": "S. Korea, Daegu",
   "languages": ["Uzbek", "Korean", "English", "Russian"],
-  "skills": ["Html", "Css", "Js", "NodeJS", "Python", "JAVA"],
+  "skills": ["Html", "Css", "Js", "NodeJS", "ReactJS", "Python"],
   "extra_skills": [
     "Bootstrap, Materialize",
     "Styling, Sass",
