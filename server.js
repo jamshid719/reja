@@ -102,7 +102,7 @@ console.log("Web serverni boshlash");
 
 // // GET va POST requestlarning farqi:
 
-// //GET - database dan malumotni oliw un iwlatiladi
+// //GET - database dan malumotni oliw un iwlatiladi.
 // //POST - malumotni uzi bn olib keladi va database ga yozadi.
 
 // ////NOTE: git reset --hard => bu filemizning ohirgi commit qilingan versiyasiga qaytadi.
