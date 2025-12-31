@@ -1,5 +1,5 @@
 // // 18. EXPRESS FRAMEWORK VA FRAMEWORK ORQALI WEB SERVER QURAMIZ.
-console.log("Web serverni boshlash");
+console.log("Web serverni boshlash!");
 
 // //Expressni install qlamiz => npm i express
 // const express = require("express");
