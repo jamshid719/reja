@@ -1,15 +1,55 @@
 console.log(`TRAIN AREA`);
+// const countLetter = function (a) {
+//   const c = a.split("").filter((ele) => ele !== "string");
+//   console.log(c.length);
+// };
+
+// countLetter("Eng1inee2r");
+
+// const countDigit = (n) {
+//   for
+// }
+
+// function countLetter(a, b) {
+//   let count = 0;
+//   a = a.toLowerCase();
+
+//   for (let i = 0; i < b.length; i++) {
+//     if (b[i].toLowerCase() === a) {
+//       count++;
+//     }
+//   }
+
+//   return count;
+// }
+
+function countDigit(a) {
+  let count = 0;
+  for (let i = 0; i < 10; i++) {
+    if (a[i] === i) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+countDigit("engin1ee4r32");
+
 //TASK A:
 /* Shunday 2 parametrli function tuzing, hamda birinchi parametrdagi letterni ikkinchi parametrdagi sozdan qatnashga sonini return qilishi kerak boladi. MASALAN countLetter("e", "engineer") 3ni return qiladi. */
 
 // Masalani yechimi:
 
-const countLetter = function (a, b) {
-  const c = b.split("").filter((ele) => ele === a);
-  console.log(c.length);
-};
+// const countLetter = function (a, b) {
+//   const c = b
+//     .toLowerCase()
+//     .split("")
+//     .filter((ele) => ele === a);
+//   console.log(c.length);
+// };
 
-countLetter("e", "engineer");
+// countLetter("e", "Engineer");
 
 ////==================================================================================//
 
@@ -17,7 +57,7 @@ countLetter("e", "engineer");
 
 // Callback funksiyalarni iwlatiw maqsadi, kop userlar tomonidan  single-threadga zapros berilganda single-threadni band qilmaslik un iwlatiladi.
 
-//NodeJS single thread metodi orqali iwlaydi. va uning mexanizmi:
+//NodeJS single thread metodi orqali iwlaydi. va uning mexanizmi (yani, NodeJS Single THREAD, Multi PROCESS!):
 /* Initialize program =>
               Execute "top-level" code =>
                                 Require modules =>
@@ -27,24 +67,25 @@ countLetter("e", "engineer");
 
 //Single-thread ni mantigini yahwi tawkillawtiriw kk, agar aksi bulsa muommolarga olib keladi. Mantigini yahwi tawkillawtiriw un Asynchronous  va callback functionlar yahwi biliwimiz kk.
 
-// console.log("Jack Ma maslahatlari");
-// const list = [
-//   "yahshi talaba buling", //0-20
-//   "tugri boshliq tanlang va koproq xato qiling", //20-30
-//   "uzingizga ishlashni boshlang", //30-40
-//   "siz kuchli bulgan narsalarni qiling", //40-50
-//   "yoshlarga investitsiya qiling", //50-60
-//   "endi dam oling, foydasi yuq endi", //60
-// ];
+console.log("Jack Ma maslahatlari");
+const list = [
+  "yahshi talaba buling", //0-20
+  "tugri boshliq tanlang va koproq xato qiling", //20-30
+  "uzingizga ishlashni boshlang", //30-40
+  "siz kuchli bulgan narsalarni qiling", //40-50
+  "yoshlarga investitsiya qiling", //50-60
+  "endi dam oling, foydasi yuq endi", //60
+];
 
-// //endi callback function tuzamiz, u 2 ta paramaterli buladi, a(bu number) va callback.
+//endi callback function tuzamiz, u 2 ta paramaterli buladi, a(bu number) va callback.
 
 // function maslahatBering(a, callback) {
 //   //error        data   bu yerda a son bulmasa err beradi, data
 //   if (typeof a !== "number") callback("insert a number", null);
-//   //mavjud bulmasa null beradi. hozi data yuq
+//   // //mavjud bulmasa null beradi. hozi data yuq
 //   else if (a <= 20) callback(null, list[0]);
-//   // buyerda endi err bumaydi,chunki a son bb, wuning un kngi qism null ga utadi.(data bormi yuqmi tekwirib, undan kn mavjud datamizga utqazvoradi.)
+//   // buyerda endi err bumaydi,chunki a son bb, wuning un kngi qism null ga utadi.(data bormi
+//   //yuqmi tekwirib, undan kn mavjud datamizga utqazvoradi.)
 //   else if (a > 20 && a <= 30) callback(null, list[1]);
 //   else if (a > 30 && a <= 40) callback(null, list[2]);
 //   else if (a > 40 && a <= 50) callback(null, list[3]);
@@ -56,14 +97,14 @@ countLetter("e", "engineer");
 //   }
 // }
 
-//demak, callback ning 1-qismi errorga tegiwli, 2-qismi biz qaytarayotgan data ga tegiwli.
+// //demak, callback ning 1-qismi errorga tegiwli, 2-qismi biz qaytarayotgan data ga tegiwli.
 
-//Call qismi. bu yerda parametr sifatida function iwga tuwadi. agar a ni urniga string quysak unda:
+// // Call qismi. bu yerda parametr sifatida function iwga tuwadi. agar a ni urniga string quysak unda:
 // maslahatBering("10", (err, data) => {
 //   if (err) console.log("ERROR:", err);
 //   console.log("javob:", data);
-// });                              //result: ERROR: insert a number
-//                                            javob: null
+// }); //result: ERROR: insert a number
+// //javob: null
 
 //
 //bizga faqat err ni kursatiw un console.log("javob:", data); else ni ichiga quysak buldi.
@@ -73,7 +114,7 @@ countLetter("e", "engineer");
 //   else {
 //     console.log("javob:", data);
 //   }
-// });                                //result: ERROR: insert a number
+// }); //result: ERROR: insert a number
 
 // // Endi a ni urniga son quyib call qilsak:
 
@@ -125,35 +166,40 @@ countLetter("e", "engineer");
 
 // 3) .try/.catch - bu ham sodda va qulay. ammo .async/await ularoq xato ketganda butunlay crash bervormaydi, aksincha sistema iwlaveradi va aynan qaerda xato ketganini catch qilib kursatadi.(debug qiliwni yengillawtiradi). Asosan async functionlarni call qilganda wu usulda foydaliw tavsiya etiladi.
 
-const list = [
-  "yahshi talaba buling", //0-20
-  "tugri boshliq tanlang va koproq xato qiling", //20-30
-  "uzingizga ishlashni boshlang", //30-40
-  "siz kuchli bulgan narsalarni qiling", //40-50
-  "yoshlarga investitsiya qiling", //50-60
-  "endi dam oling, foydasi yuq endi", //60
-];
+// FORMULA (tavsiya):    DEFINE                CALL
+//                     callback        >     callback
+//                     async/await     >     then/catch || async/await
+//                     promise         >     then/catch || async/await
 
-async function maslahatBering(a) {
-  if (typeof a !== "number") throw new Error("insert a number");
-  else if (a <= 20) return list[0];
-  else if (a > 20 && a <= 30) return list[1];
-  else if (a > 30 && a <= 40) return list[2];
-  else if (a > 40 && a <= 50) return list[3];
-  else if (a > 50 && a <= 60) return list[4];
-  else {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(list[5]);
-      }, 3000);
-    }); // Promise ning kuch tarafi setTimeout iwlaydi, lekn setInterval iwlamaydi.
-    // (setInterval callback functionda iwlaydi)
+// const list = [
+//   "yahshi talaba buling", //0-20
+//   "tugri boshliq tanlang va koproq xato qiling", //20-30
+//   "uzingizga ishlashni boshlang", //30-40
+//   "siz kuchli bulgan narsalarni qiling", //40-50
+//   "yoshlarga investitsiya qiling", //50-60
+//   "endi dam oling, foydasi yuq endi", //60
+// ];
 
-    // setTimeout(function () {
-    //   callback(null, list[5]);
-    // }, 5000);
-  }
-}
+// async function maslahatBering(a) {
+//   if (typeof a !== "number") throw new Error("insert a number");
+//   else if (a <= 20) return list[0];
+//   else if (a > 20 && a <= 30) return list[1];
+//   else if (a > 30 && a <= 40) return list[2];
+//   else if (a > 40 && a <= 50) return list[3];
+//   else if (a > 50 && a <= 60) return list[4];
+//   else {
+//     return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//         resolve(list[5]);
+//       }, 3000);
+//     }); // Promise ning kuch tarafi setTimeout iwlaydi, lekn setInterval iwlamaydi.
+//     // (setInterval callback functionda iwlaydi)
+
+//     // setTimeout(function () {
+//     //   callback(null, list[5]);
+//     // }, 5000);
+//   }
+// }
 
 // CALL via .then/.catch
 
