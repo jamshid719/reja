@@ -197,11 +197,46 @@ app.set("view engine", "ejs");
 
 app.post("/create-item", (req, res) => {
   console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
-  res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
+  // res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
+  // res.end("success"); //"/create-item" ga wu suzni yuboriw
+
+  //endi mongoDB ga malumot kiritsak, kiritgan malumotimiz req.body dan chiqadigan reja bn birxil nom bn quwilsin:
+  const new_reja = req.body.reja;
+  db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.end("something went wrong"); //wu yozuvda userlarga bildiriw(API da)
+    } else {
+      console.log(data);
+      res.end("succesfully added");
+    }
+  });
 });
 
 app.get("/", function (req, res) {
-  res.render("reja");
+  db.collection("plans")
+    .find()
+    .toArray((err, data) => {
+      if (err) {
+        console.log(err);
+        res.end("something went wrong");
+      } else {
+        console.log(data);
+        res.render("reja", { items: data });
+      }
+    });
 }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
 
 module.exports = app;
+
+//217-225da bizda MongoDB Atlas databaseda hech qanaqa "plans" collection bulmaganligi un bizga pustoy data ([]) qaytarayapti.
+
+//databasega malumot yozsak 204-210da.
+
+// databasega malumot kiritgandan sung, yana bir bor locahostga kirib chiqsak bizga endi bush arraymas, biz kiritgan malumotlarni kursatadi terminalda. endi ularni terminalda emas reja.ejs ga kiritiwimiz kk. uni un  res.render ga {items: data} ni kiritiwimiz kk
+
+//Va undan kn reja.ejs ga <%= items[0].reja %> orqali birma bir kiritiwimiz mumkin. bu yerda reja form inputdagi "name".
+
+//reje.ejs da:
+// - data-id="<%=item._id%>" buttonlarga kiritiliwimizga sabab biz kelajakda qaysi item ni uchiriw yo uzgartiriwimz mumkin,
+//    database dagi item _id isi orqali

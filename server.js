@@ -15,6 +15,7 @@ mongodb.connect(
     if (err) console.log("ERROR on connection MongoDB");
     else {
       console.log("MongoDB connection succeed");
+      // console.log(client);
       module.exports = client;
       const app = require("./app");
       //serverni hosil qilamiz.
@@ -30,3 +31,8 @@ mongodb.connect(
 );
 
 //else ichiga const = app bn const = server ni joylawtiriwimizdan maqsad, birinchi database(MongoDB) ga muvofaqiyatli ulangandan kn app va server iwga tuwiriwdir.
+
+// MongoDB qanaqa instance qaytariwini biliw un console.log(client);
+//buda client nimadan iboratligini kuriw un. buni biz kop iwlatamiz.
+
+// wuning un server.js file dan export qilib, app.js dan chaqiriw un reqire qiliw kk. bu bizga knchalik databasega turli xil malumotalr CRUD amallarni qilsak buladi.

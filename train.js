@@ -1,40 +1,16 @@
 console.log(`TRAIN AREA`);
-// const countLetter = function (a) {
-//   const c = a.split("").filter((ele) => ele !== "string");
-//   console.log(c.length);
-// };
-
-// countLetter("Eng1inee2r");
-
-// const countDigit = (n) {
-//   for
-// }
-
-// function countLetter(a, b) {
-//   let count = 0;
-//   a = a.toLowerCase();
-
-//   for (let i = 0; i < b.length; i++) {
-//     if (b[i].toLowerCase() === a) {
-//       count++;
-//     }
-//   }
-
-//   return count;
-// }
+//TASK B:
+/* Shunday function tuzing, u 1ta string parametrga ega bolsin, hamda osha stringda qatnashgan raqamlarni sonini bizga return qilsin.
+MASALAN countDigits("ad2a54y79wet0sfgb9") 7ni return qiladi.
+*/
 
 function countDigit(a) {
-  let count = 0;
-  for (let i = 0; i < 10; i++) {
-    if (a[i] === i) {
-      count++;
-    }
-  }
-
-  return count;
+  const c = a.split("").filter((ele) => ele >= "0" && ele <= "9");
+  console.log("TASK B:", c.length);
 }
 
-countDigit("engin1ee4r32");
+countDigit("eng2inee5e3442r7");
+//console.log(c); (7) ['2', '5', '3', '4', '4', '2', '7']
 
 //TASK A:
 /* Shunday 2 parametrli function tuzing, hamda birinchi parametrdagi letterni ikkinchi parametrdagi sozdan qatnashga sonini return qilishi kerak boladi. MASALAN countLetter("e", "engineer") 3ni return qiladi. */
@@ -67,7 +43,7 @@ countDigit("engin1ee4r32");
 
 //Single-thread ni mantigini yahwi tawkillawtiriw kk, agar aksi bulsa muommolarga olib keladi. Mantigini yahwi tawkillawtiriw un Asynchronous  va callback functionlar yahwi biliwimiz kk.
 
-console.log("Jack Ma maslahatlari");
+// console.log("Jack Ma maslahatlari");
 const list = [
   "yahshi talaba buling", //0-20
   "tugri boshliq tanlang va koproq xato qiling", //20-30
