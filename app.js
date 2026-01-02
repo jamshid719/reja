@@ -161,18 +161,107 @@ console.log("Web serverni boshlash!");
 
 //============================================================================////
 
-//23-24. MongoDB atlasni sozlaymiz va reja loyihasini MongoDB databasega connection quramiz.
+// //23-24-25. MongoDB atlasni sozlaymiz, reja loyihasini MongoDB databasega connection quramiz va CRUD amallar.
 
-// MongoDB ini iwlatiw usuli 2 xil: tugridan-tugri || mongoose package orqali.
+// // MongoDB ini iwlatiw usuli 2 xil: tugridan-tugri || mongoose package orqali.
 
-// Bu loyohada(reja) tugridan tugri iwlatamiz, kngi loyihada(FoodDelivery) mangoose orqali iwlatamiz.
+// // Bu loyohada(reja) tugridan tugri iwlatamiz, kngi loyihada(FoodDelivery) mangoose orqali iwlatamiz.
+
+// const express = require("express");
+// const app = express(); //app. backend qurib beradigan object
+// const http = require("http");
+
+// //MongoDB call
+// const db = require("./server").db(); // db bu QALAM - database ga CRUD amallarini bajariw un iwlatiladi.
+
+// // //1. Kirish code:
+// app.use(express.static("public"));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// // //2.Session
+
+// // //3. Views code:
+// app.set("views", "views");
+// app.set("view engine", "ejs");
+
+// // //4. Routing code:
+
+// // app.get("/hello", function (req, res) {
+// //   res.end(`<h1 style = "background: grey">Hello World</h1>`);
+// // });
+
+// // app.get("/gift", function (req, res) {
+// //   res.end(`<h1 style="background: blue">Siz sovgalar bulimidasiz!</h1>`);
+// // });
+
+// app.post("/create-item", (req, res) => {
+//   console.log("user entered /create-item"); // bu bizga userlar wu api ga kirib keldi deb habar beradi
+//   // console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
+//   // res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
+//   // res.end("success"); //"/create-item" ga wu suzni yuboriw
+
+//   //endi mongoDB ga malumot kiritsak, kiritgan malumotimiz req.body dan chiqadigan reja bn birxil nom bn quwilsin:
+//   const new_reja = req.body.reja;
+//   db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+//     if (err) {
+//       console.log(err);
+//       res.end("something went wrong"); //wu yozuvda userlarga bildiriw(API da)
+//     } else {
+//       console.log(data);
+//       res.end("succesfully added");
+//     }
+//   });
+// });
+
+// app.get("/", function (req, res) {
+//   console.log("user entered /"); // bu bizga userlar wu api ga kirib keldi deb habar beradi
+//   db.collection("plans")
+//     .find()
+//     .toArray((err, data) => {
+//       if (err) {
+//         console.log(err);
+//         res.end("something went wrong");
+//       } else {
+//         // console.log(data);
+//         res.render("reja", { items: data });
+//       }
+//     });
+// }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+
+// module.exports = app;
+
+//217-225da bizda MongoDB Atlas databaseda hech qanaqa "plans" collection bulmaganligi un bizga pustoy data ([]) qaytarayapti.
+
+//databasega malumot yozsak 204-210da.
+
+// databasega malumot kiritgandan sung, yana bir bor locahostga kirib chiqsak bizga endi bush arraymas, biz kiritgan malumotlarni kursatadi terminalda. endi ularni terminalda emas reja.ejs ga kiritiwimiz kk. uni un  res.render ga {items: data} ni kiritiwimiz kk
+
+//Va undan kn reja.ejs ga <%= items[0].reja %> orqali birma bir kiritiwimiz mumkin. bu yerda reja form inputdagi "name".
+
+//reje.ejs da:
+// - data-id="<%=item._id%>" buttonlarga kiritiliwimizga sabab biz kelajakda qaysi item ni uchiriw yo uzgartiriwimz mumkin,
+//    database dagi item _id isi orqali
+
+// reja loyihamizni 1ta kamchiligi bor , agar inputga biz malumot kirgizib enter ni bossak, bizng yangi oyna ochib "succesfully added" chiqarib beradi. agar obnovit qilsak ruyhatga quwadi. wu amalni enterni bosib ruyhatga quwiw un ejs ga javascript ni integratsiya qiliw kk. Yani Frontend Javascriptni.
+
+// Loyihalarning iwlaw prinsipining ketma-ketligi:
+// 1 -STEP: Frontend
+// 2 -STEP: Frontend => Backend
+// 3 -STEP: Backend => Database
+// 4 -STEP: Database => Backend
+// 5 -STEP: Backend => Frontend
+
+//==============================================================//
+
+//26. Reja mini loyihamizning frontendini quramiz
 
 const express = require("express");
-const app = express();
+const app = express(); //app. backend qurib beradigan object
 const http = require("http");
 
 //MongoDB call
-const db = require("./server").db();
+const db = require("./server").db(); // db bu QALAM - database ga CRUD amallarini bajariw un iwlatiladi.
 
 // //1. Kirish code:
 app.use(express.static("public"));
@@ -187,33 +276,17 @@ app.set("view engine", "ejs");
 
 // //4. Routing code:
 
-// app.get("/hello", function (req, res) {
-//   res.end(`<h1 style = "background: grey">Hello World</h1>`);
-// });
-
-// app.get("/gift", function (req, res) {
-//   res.end(`<h1 style="background: blue">Siz sovgalar bulimidasiz!</h1>`);
-// });
-
 app.post("/create-item", (req, res) => {
-  console.log(req.body); // bu kelgan narsani body qismini tekwiriw deyiladi.
-  // res.json({ test: "success" }); // va json waklida malumotni qaytarib yuboriw
-  // res.end("success"); //"/create-item" ga wu suzni yuboriw
-
-  //endi mongoDB ga malumot kiritsak, kiritgan malumotimiz req.body dan chiqadigan reja bn birxil nom bn quwilsin:
+  console.log("user entered /create-item");
   const new_reja = req.body.reja;
   db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.end("something went wrong"); //wu yozuvda userlarga bildiriw(API da)
-    } else {
-      console.log(data);
-      res.end("succesfully added");
-    }
+    console.log(data.ops);
+    res.json(data.ops[0]);
   });
 });
 
 app.get("/", function (req, res) {
+  console.log("user entered /"); // bu bizga userlar wu api ga kirib keldi deb habar beradi
   db.collection("plans")
     .find()
     .toArray((err, data) => {
@@ -221,22 +294,10 @@ app.get("/", function (req, res) {
         console.log(err);
         res.end("something went wrong");
       } else {
-        console.log(data);
+        // console.log(data);
         res.render("reja", { items: data });
       }
     });
 }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
 
 module.exports = app;
-
-//217-225da bizda MongoDB Atlas databaseda hech qanaqa "plans" collection bulmaganligi un bizga pustoy data ([]) qaytarayapti.
-
-//databasega malumot yozsak 204-210da.
-
-// databasega malumot kiritgandan sung, yana bir bor locahostga kirib chiqsak bizga endi bush arraymas, biz kiritgan malumotlarni kursatadi terminalda. endi ularni terminalda emas reja.ejs ga kiritiwimiz kk. uni un  res.render ga {items: data} ni kiritiwimiz kk
-
-//Va undan kn reja.ejs ga <%= items[0].reja %> orqali birma bir kiritiwimiz mumkin. bu yerda reja form inputdagi "name".
-
-//reje.ejs da:
-// - data-id="<%=item._id%>" buttonlarga kiritiliwimizga sabab biz kelajakda qaysi item ni uchiriw yo uzgartiriwimz mumkin,
-//    database dagi item _id isi orqali
