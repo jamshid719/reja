@@ -256,12 +256,63 @@ console.log("Web serverni boshlash!");
 
 //26. Reja mini loyihamizning frontendini quramiz
 
+// const express = require("express");
+// const app = express(); //app. backend qurib beradigan object
+// const http = require("http");
+
+// //MongoDB call
+// const db = require("./server").db(); // db bu QALAM - database ga CRUD amallarini bajariw un iwlatiladi.
+
+// // //1. Kirish code:
+// app.use(express.static("public"));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// // //2.Session
+
+// // //3. Views code:
+// app.set("views", "views");
+// app.set("view engine", "ejs");
+
+// // //4. Routing code:
+
+// app.post("/create-item", (req, res) => {
+//   console.log("user entered /create-item");
+//   const new_reja = req.body.reja;
+//   db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+//     console.log(data.ops);
+//     res.json(data.ops[0]);
+//   });
+// });
+
+// app.get("/", function (req, res) {
+//   console.log("user entered /"); // bu bizga userlar wu api ga kirib keldi deb habar beradi
+//   db.collection("plans")
+//     .find()
+//     .toArray((err, data) => {
+//       if (err) {
+//         console.log(err);
+//         res.end("something went wrong");
+//       } else {
+//         // console.log(data);
+//         res.render("reja", { items: data });
+//       }
+//     });
+// }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+
+// module.exports = app;
+
+//===========================================================================//
+
+// 27. Rejalarni o'chirish (DELETE)
+
 const express = require("express");
 const app = express(); //app. backend qurib beradigan object
 const http = require("http");
 
 //MongoDB call
 const db = require("./server").db(); // db bu QALAM - database ga CRUD amallarini bajariw un iwlatiladi.
+const mongodb = require("mongodb"); // bu frontendJS dan kelayotgan string kuriniwdagi id ini uzi uqiy oladigan kuriniwga uguradi, yani wrap qib beradi.
 
 // //1. Kirish code:
 app.use(express.static("public"));
@@ -283,6 +334,20 @@ app.post("/create-item", (req, res) => {
     console.log(data.ops);
     res.json(data.ops[0]);
   });
+});
+
+app.post("/delete-item", (req, res) => {
+  const id = req.body.id; //id ni string shaklida ushladi.
+  // console.log(id);
+  // Endi databasedan uchiriw amalini qilamiz.
+  db.collection("plans").deleteOne(
+    {
+      _id: new mongodb.ObjectId(id),
+    },
+    function (err, data) {
+      res.json({ state: "success" }); //bu databasedan uchirib va javob yozayapmiz,va bu javob response ni data qismiga qaytib keladi console.log(response.data);.
+    }
+  );
 });
 
 app.get("/", function (req, res) {

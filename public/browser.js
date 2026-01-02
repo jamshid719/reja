@@ -42,3 +42,42 @@ document.getElementById("create-form").addEventListener("submit", function (e) {
 });
 
 //Axios - bu traditional post emas, bu modern post request (pcg)
+
+//click tugmalarini birortasini tanlash un: console.log(e); yozsak aynan nima bosilganini qulga kiritib beradi.
+
+document.addEventListener("click", function (e) {
+  // console.log(e);
+  console.log(e.target);
+
+  //DELETE oper
+  if (e.target.classList.contains("delete-me")) {
+    if (confirm("aniq uchirmoqchimisz")) {
+      axios
+        .post(
+          "/delete-item",
+          {
+            id: e.target.getAttribute("data-id"),
+          } /*endi buni backendga post qilamiz(const id = req.body.id - shu yusinda)*/
+        )
+        .then((response) => {
+          console.log(response.data);
+          //Endi view qismidan uchirish:
+          e.target.parentElement.parentElement.remove();
+        })
+        .catch((err) => {
+          console.log("Iltimos qaytadan harakat qiling");
+        });
+    }
+
+    // if (confirm("aniq uchirmoqchimisz")) {
+    //   alert("yes deb javob berildi");
+    // } else {
+    //   alert("no deb javob berildi");
+    // }
+  }
+
+  //EDIT oper
+  if (e.target.classList.contains("edit-me")) {
+    alert("siz edit tugmasini bosdingiz");
+  }
+});
