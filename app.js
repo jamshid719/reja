@@ -14,7 +14,7 @@ console.log("Web serverni boshlash!");
 // //bu har qanday browser dan kirib kelayotgan zaproslar un public folder ochiq deyiladi, yani userlar kura oladi
 // app.use(express.json());
 // //bu bizga kirib kelayotgan json formatdagi data ni bizga object holatiga ugirib beradi.
-// // chunki client va web erver orasidagi data json format da
+// // chunki client va web erver orasidagi data json format da, faqat REST API un iwlaydi.
 // app.use(express.urlencoded({ extended: true }));
 // // bu traditional request qiliw instrumenti,yani html formdan biror narsani post qilsak, bizning express serverimiz qabul qila oladi, bu kod bulmasa neglect qiladi.
 
@@ -163,9 +163,9 @@ console.log("Web serverni boshlash!");
 
 // //23-24-25. MongoDB atlasni sozlaymiz, reja loyihasini MongoDB databasega connection quramiz va CRUD amallar.
 
-// // MongoDB ini iwlatiw usuli 2 xil: tugridan-tugri || mongoose package orqali.
+// MongoDB ini iwlatiw usuli 2 xil: tugridan-tugri || mongoose package orqali.
 
-// // Bu loyohada(reja) tugridan tugri iwlatamiz, kngi loyihada(FoodDelivery) mangoose orqali iwlatamiz.
+// Bu loyohada(reja) tugridan tugri iwlatamiz, kngi loyihada(FoodDelivery) mangoose orqali iwlatamiz.
 
 // const express = require("express");
 // const app = express(); //app. backend qurib beradigan object
@@ -186,14 +186,6 @@ console.log("Web serverni boshlash!");
 // app.set("view engine", "ejs");
 
 // // //4. Routing code:
-
-// // app.get("/hello", function (req, res) {
-// //   res.end(`<h1 style = "background: grey">Hello World</h1>`);
-// // });
-
-// // app.get("/gift", function (req, res) {
-// //   res.end(`<h1 style="background: blue">Siz sovgalar bulimidasiz!</h1>`);
-// // });
 
 // app.post("/create-item", (req, res) => {
 //   console.log("user entered /create-item"); // bu bizga userlar wu api ga kirib keldi deb habar beradi
@@ -219,6 +211,7 @@ console.log("Web serverni boshlash!");
 //   db.collection("plans")
 //     .find()
 //     .toArray((err, data) => {
+//       // bu islagan natijasini array qilib bersin degani
 //       if (err) {
 //         console.log(err);
 //         res.end("something went wrong");
@@ -227,7 +220,7 @@ console.log("Web serverni boshlash!");
 //         res.render("reja", { items: data });
 //       }
 //     });
-// }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+// });
 
 // module.exports = app;
 
@@ -298,11 +291,11 @@ console.log("Web serverni boshlash!");
 //         res.render("reja", { items: data });
 //       }
 //     });
-// }); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+// });
 
 // module.exports = app;
 
-//===========================================================================//
+// ===========================================================================//
 
 // 27. Rejalarni o'chirish (DELETE)
 
@@ -350,6 +343,26 @@ app.post("/delete-item", (req, res) => {
   );
 });
 
+app.post("/edit-item", (req, res) => {
+  const data = req.body;
+  console.log(data);
+  db.collection("plans").findOneAndUpdate(
+    { _id: new mongodb.ObjectId(data.id) },
+    { $set: { reja: data.new_input } },
+    function (err, data) {
+      res.json({ state: "success" });
+    }
+  );
+});
+
+app.post("/delete-all", (req, res) => {
+  if (req.body.delete_all) {
+    db.collection("plans").deleteMany(function () {
+      res.json({ state: "Hamma rejalar ochirildi" });
+    });
+  }
+});
+
 app.get("/", function (req, res) {
   console.log("user entered /"); // bu bizga userlar wu api ga kirib keldi deb habar beradi
   db.collection("plans")
@@ -363,6 +376,6 @@ app.get("/", function (req, res) {
         res.render("reja", { items: data });
       }
     });
-}); // harid.ejs faylini "view" papkada hosil qilib olamiz.
+});
 
 module.exports = app;

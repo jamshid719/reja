@@ -27,7 +27,7 @@ function itemTemplate(item) {
 document.getElementById("create-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  axios
+  axios // fetch, ajax ham iwlatsa buladi.
     .post("/create-item", { reja: createField.value })
     .then((response) => {
       document
@@ -57,7 +57,7 @@ document.addEventListener("click", function (e) {
           "/delete-item",
           {
             id: e.target.getAttribute("data-id"),
-          } /*endi buni backendga post qilamiz(const id = req.body.id - shu yusinda)*/
+          } /*endi buni backendga post qilamiz(const id = req.body.id - shu yusinda) bu body. kngi id*/
         )
         .then((response) => {
           console.log(response.data);
@@ -78,6 +78,40 @@ document.addEventListener("click", function (e) {
 
   //EDIT oper
   if (e.target.classList.contains("edit-me")) {
-    alert("siz edit tugmasini bosdingiz");
+    let userInput = prompt(
+      "Ozgartirish kiriting",
+      e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
+    );
+    // console.log(userInput);
+    if (userInput) {
+      axios
+        .post("/edit-item", {
+          id: e.target.getAttribute("data-id"),
+          new_input: userInput,
+        })
+        .then((response) => {
+          console.log(response.data);
+          e.target.parentElement.parentElement.querySelector(
+            ".item-text"
+          ).innerHTML = userInput;
+        })
+        .catch((err) => {
+          console.log("Iltimos qaytadan harakat qiling");
+        });
+    }
   }
 });
+
+document.getElementById("clean-all").addEventListener("click", function () {
+  axios
+    .post("/delete-all", { delete_all: true })
+    .then((response) => {
+      // console.log(response.data);
+      alert(response.data.state);
+      //databasedan uchirib "Hamma rejalar uchirildi" zaprosdan kelgandan sung, biz frontend dan ham uchiriwimiz kk, buni 2ta usuli bor, 1-chi hamma viewlarni uchiriw yoki 2-chi soddaroq usuli shunchaki pagemizni reload qiliwimiz mumkin.
+      document.location.reload();
+    })
+    .catch();
+});
+
+//{delete_all: true} - xavfsizlik nuqtai nazaridan qilish (body qismiga yuboriw.)

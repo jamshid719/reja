@@ -1,53 +1,71 @@
 console.log(`TRAIN AREA`);
-// MITASK-C
 
-// Shunday class tuzing tuzing nomi Shop, va uni constructoriga 3 hil mahsulot pass bolsin, hamda classning 3ta methodi bolsin, biri qoldiq, biri sotish va biri qabul. Har bir method ishga tushgan vaqt ham log qilinsin.
-// MASALAN: const shop = new Shop(4, 5, 2); shop.qoldiq() return hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud! shop.sotish('non', 3) & shop.qabul('cola', 4) & shop.qoldiq() return hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
+// MITASK-D : Shunday function tuzing, u 2ta string parametr ega bolsin, hamda agar har ikkala string bir hil harflardan iborat bolsa true aks holda false qaytarsin. MASALAN: checkContent("mitgroup", "gmtiprou") return qiladi true;
 
-const moment = require("moment");
+const sameLetters = function (a, b) {
+  const c =
+    a.split("").length === b.split("").length &&
+    a
+      .split("")
+      .slice()
+      .sort()
+      .every((ele, i) => ele === b.split("").slice().sort()[i]);
+  console.log("MITASK-D", c);
+};
 
-class Shop {
-  constructor(Non, Lagmon, Coca_cola) {
-    this.Non = Non;
-    this.Lagmon = Lagmon;
-    this.Coca_cola = Coca_cola;
-  }
+sameLetters("mitgroup", "gmtiprou");
 
-  //method
-  leftover() {
-    console.log(
-      ` At this time: ${moment().format("HH:mm")}: "Non": ${
-        this.Non
-      }, "Lagmon": ${this.Lagmon}, "Coca_cola": ${this.Coca_cola} on sale now`
-    );
-  }
+// // MITASK-C
 
-  received(Non = 0, Lagmon = 0, Coca_cola = 0) {
-    this.Non += Non;
-    this.Lagmon += Lagmon;
-    this.Coca_cola += Coca_cola;
-    console.log(
-      `"Non": ${this.Non}, "Lagmon": ${this.Lagmon}, "Coca_cola": ${this.Coca_cola}  on sale now`
-    );
-  }
+// // Shunday class tuzing tuzing nomi Shop, va uni constructoriga 3 hil mahsulot pass bolsin, hamda classning 3ta methodi bolsin, biri qoldiq, biri sotish va biri qabul. Har bir method ishga tushgan vaqt ham log qilinsin.
+// // MASALAN: const shop = new Shop(4, 5, 2); shop.qoldiq() return hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud! shop.sotish('non', 3) & shop.qabul('cola', 4) & shop.qoldiq() return hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
 
-  sold(Non = 0, Lagmon = 0, Coca_cola = 0) {
-    if ((this.Non >= Non, this.Lagmon >= Lagmon, this.Coca_cola >= Coca_cola)) {
-      this.Non -= Non;
-      this.Lagmon -= Lagmon;
-      this.Coca_cola -= Coca_cola;
-      console.log(`Sale made!`);
-    } else {
-      console.log(`There is not enough product!`);
-    }
-  }
-}
+// const moment = require("moment");
 
-const shop = new Shop(4, 5, 2);
-shop.leftover();
-shop.received(0, 0, 4);
-shop.sold(3);
-shop.leftover();
+// class Shop {
+//   constructor(Non, Lagmon, Coca_cola) {
+//     this.Non = Non;
+//     this.Lagmon = Lagmon;
+//     this.Coca_cola = Coca_cola;
+//   }
+
+//   //method
+//   leftover() {
+//     console.log(
+//       ` At this time: ${moment().format("HH:mm")}: "Non": ${
+//         this.Non
+//       }, "Lagmon": ${this.Lagmon}, "Coca_cola": ${this.Coca_cola} on sale now`
+//     );
+//   }
+
+//   received(Non = 0, Lagmon = 0, Coca_cola = 0) {
+//     this.Non += Non;
+//     this.Lagmon += Lagmon;
+//     this.Coca_cola += Coca_cola;
+//     console.log(
+//       `"Non": ${this.Non}, "Lagmon": ${this.Lagmon}, "Coca_cola": ${this.Coca_cola}  on sale now`
+//     );
+//   }
+
+//   sold(Non = 0, Lagmon = 0, Coca_cola = 0) {
+//     if ((this.Non >= Non, this.Lagmon >= Lagmon, this.Coca_cola >= Coca_cola)) {
+//       this.Non -= Non;
+//       this.Lagmon -= Lagmon;
+//       this.Coca_cola -= Coca_cola;
+//       console.log(`Sale made!`);
+//     } else {
+//       console.log(`There is not enough product!`);
+//     }
+//   }
+// }
+
+// const shop = new Shop(4, 5, 2);
+// shop.leftover();
+// shop.received(0, 0, 4);
+// shop.sold(3);
+// shop.leftover();
+
+//=========================================================================================//
 
 //TASK B:
 /* Shunday function tuzing, u 1ta string parametrga ega bolsin, hamda osha stringda qatnashgan raqamlarni sonini bizga return qilsin.
@@ -61,6 +79,8 @@ MASALAN countDigits("ad2a54y79wet0sfgb9") 7ni return qiladi.
 
 // countDigit("eng2inee5e3442r7");
 // //console.log(c); (7) ['2', '5', '3', '4', '4', '2', '7']
+
+//=======================================================================================//
 
 //TASK A:
 /* Shunday 2 parametrli function tuzing, hamda birinchi parametrdagi letterni ikkinchi parametrdagi sozdan qatnashga sonini return qilishi kerak boladi. MASALAN countLetter("e", "engineer") 3ni return qiladi. */
