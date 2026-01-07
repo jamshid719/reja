@@ -129,9 +129,9 @@ console.log("Web serverni boshlash!");
 // });
 
 // // //1. Kirish code:
-// app.use(express.static("public"));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+// app.use(express.static("public"));                 //DESIGN pattern --Middleware(oraliq mantiq) > public ochiqlaydi
+// app.use(express.json());                          // bu ham Middleware DP > Rest API
+// app.use(express.urlencoded({ extended: true })); // bu ham Middleware DP > Tradional API
 
 // // //2.Session
 
@@ -159,6 +159,16 @@ console.log("Web serverni boshlash!");
 //   );
 // });
 
+/*PATTERN > ARCHITECTURE pattern vs DESIGN pattern
+
+ FRONTEND DEVELOP > BSSR(EJS) | SPA(React)
+
+ API REQUEST
+ 1. TYPE: Traditional API | Rest API | GraphQL API
+ 2. METHOD: GET | POST
+ 3. STRUCTURE: header | body 
+
+*/
 //============================================================================////
 
 // //23-24-25. MongoDB atlasni sozlaymiz, reja loyihasini MongoDB databasega connection quramiz va CRUD amallar.
@@ -297,7 +307,7 @@ console.log("Web serverni boshlash!");
 
 // ===========================================================================//
 
-// 27. Rejalarni o'chirish (DELETE)
+// 27-28. Rejalarni o'chirish (DELETE) va uzgartirish (UPDATE)
 
 const express = require("express");
 const app = express(); //app. backend qurib beradigan object
@@ -330,7 +340,9 @@ app.post("/create-item", (req, res) => {
 });
 
 app.post("/delete-item", (req, res) => {
+  console.log("STEP2: FR > BS kiradi, yani malum bir datani ob keladi");
   const id = req.body.id; //id ni string shaklida ushladi.
+  console.log("STEP3: BS > DB data ni junatadi");
   // console.log(id);
   // Endi databasedan uchiriw amalini qilamiz.
   db.collection("plans").deleteOne(
@@ -338,6 +350,8 @@ app.post("/delete-item", (req, res) => {
       _id: new mongodb.ObjectId(id),
     },
     function (err, data) {
+      console.log("STEP4: DB > BS data ni qabul qiladi");
+      console.log("STEP5: BS > FR data ni FR ga junatadi,yani json formatda");
       res.json({ state: "success" }); //bu databasedan uchirib va javob yozayapmiz,va bu javob response ni data qismiga qaytib keladi console.log(response.data);.
     }
   );
@@ -345,6 +359,7 @@ app.post("/delete-item", (req, res) => {
 
 app.post("/edit-item", (req, res) => {
   const data = req.body;
+
   console.log(data);
   db.collection("plans").findOneAndUpdate(
     { _id: new mongodb.ObjectId(data.id) },

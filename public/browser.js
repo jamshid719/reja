@@ -51,6 +51,7 @@ document.addEventListener("click", function (e) {
 
   //DELETE oper
   if (e.target.classList.contains("delete-me")) {
+    console.log("STEP1: FR > BS. FR dan BS ga request buladi");
     if (confirm("aniq uchirmoqchimisz")) {
       axios
         .post(
@@ -60,6 +61,7 @@ document.addEventListener("click", function (e) {
           } /*endi buni backendga post qilamiz(const id = req.body.id - shu yusinda) bu body. kngi id*/
         )
         .then((response) => {
+          console.log("STEP6: BS > FR kirib keladi");
           console.log(response.data);
           //Endi view qismidan uchirish:
           e.target.parentElement.parentElement.remove();

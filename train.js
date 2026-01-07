@@ -1,19 +1,42 @@
 console.log(`TRAIN AREA`);
 
-// MITASK-D : Shunday function tuzing, u 2ta string parametr ega bolsin, hamda agar har ikkala string bir hil harflardan iborat bolsa true aks holda false qaytarsin. MASALAN: checkContent("mitgroup", "gmtiprou") return qiladi true;
+// TASK E:
 
-const sameLetters = function (a, b) {
-  const c =
-    a.split("").length === b.split("").length &&
-    a
-      .split("")
-      .slice()
-      .sort()
-      .every((ele, i) => ele === b.split("").slice().sort()[i]);
-  console.log("MITASK-D", c);
+// Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
+// MASALAN: getReverse("hello") return qilsin "olleh"
+
+const wordReverser = function (a) {
+  const c = a.split("").reverse().join("");
+  console.log("MITASK E:", c);
 };
 
-sameLetters("mitgroup", "gmtiprou");
+wordReverser("hello");
+
+// MITASK-D : Shunday function tuzing, u 2ta string parametr ega bolsin, hamda agar har ikkala string bir hil harflardan iborat bolsa true aks holda false qaytarsin. MASALAN: checkContent("mitgroup", "gmtiprou") return qiladi true;
+
+// const sameLetters = function (a, b) {
+//   const c =
+//     a.split("").length === b.split("").length &&
+//     a
+//       .split("")
+//       .slice()
+//       .sort()
+//       .every((ele, i) => ele === b.split("").slice().sort()[i]);
+//   console.log("MITASK-D", c);
+// };
+
+// sameLetters("mitgroup", "gmtiprou");
+
+// //2nd version (sodda usul):
+// const sameLetters = function (a, b) {
+//   const c = a
+//     .split("")
+//     .sort()
+//     .every((ele, i) => ele === b.split("").sort()[i]);
+//   console.log("MITASK-D", c);
+// };
+
+// sameLetters("mitgroup", "gmtiprou");
 
 // // MITASK-C
 
