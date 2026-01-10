@@ -1,16 +1,44 @@
 console.log(`TRAIN AREA`);
 
-// TASK E:
+// MASALAN: findDoublers("hello"); natija true qaytadi. Sababi ikki marotaba takrorlangan 'll' harfi mavjud!
 
-// Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
-// MASALAN: getReverse("hello") return qilsin "olleh"
+//ketma-ket kelgan bir xil harflar un:
 
-const wordReverser = function (a) {
-  const c = a.split("").reverse().join("");
-  console.log("MITASK E:", c);
+// const findDoublers = function (a) {
+//   const c = a.split("").some((ele, i, arr) => ele === arr[i + 1]);
+
+//   console.log("MITASK-F:", c);
+// };
+
+// findDoublers("hello");
+
+// har joyda kelgan bir xil harflar un:
+
+const findDoublers = function (a) {
+  const seen = [];
+
+  const c = a.split("").some((ele) => {
+    if (seen.includes(ele)) return true;
+    seen.push(ele);
+    return false;
+  });
+
+  console.log("MITASK-F", c);
 };
 
-wordReverser("hello");
+findDoublers("halol");
+
+// // TASK E:
+
+// // Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
+// // MASALAN: getReverse("hello") return qilsin "olleh"
+
+// const wordReverser = function (a) {
+//   const c = a.split("").reverse().join("");
+//   console.log("MITASK E:", c);
+// };
+
+// wordReverser("hello");
 
 // MITASK-D : Shunday function tuzing, u 2ta string parametr ega bolsin, hamda agar har ikkala string bir hil harflardan iborat bolsa true aks holda false qaytarsin. MASALAN: checkContent("mitgroup", "gmtiprou") return qiladi true;
 
